@@ -3,7 +3,7 @@ from main import consumer
 import threading
 
 from classes import Resources, TaskQueue
-from constants import CPU_CORES, GPU_COUNT, RAM
+from constants import CPU_CORES, GPU_COUNT, RAM, TEST_CASE_COUNT, MAX_PRIORITY
 
 available_resources = Resources(cpu_cores=CPU_CORES,
                                 gpu_count=GPU_COUNT,
@@ -11,15 +11,15 @@ available_resources = Resources(cpu_cores=CPU_CORES,
 if __name__ == '__main__':
     queue = TaskQueue()
 
-    for i in range(1000):
+    for i in range(TEST_CASE_COUNT):
         queue.add_task({
             "id": i,
-            "priority": randint(100),
+            "priority": randint(MAX_PRIORITY),
             "resources": {
 
-                "ram": randint(16 * 1024),
-                "cpu_cores": randint(8),
-                "gpu_count": randint(8)
+                "ram": randint(RAM),
+                "cpu_cores": randint(CPU_CORES),
+                "gpu_count": randint(GPU_COUNT)
             },
             "content": "some content",
             "result": "some result"
@@ -27,7 +27,7 @@ if __name__ == '__main__':
 
     print("The queue is the following:")
     queue.print_queue()
-    print("*" * 100, "\n")
+    print("_" * 100, "\n")
 
     get_thread = threading.Thread(target=consumer)
     get_thread_1 = threading.Thread(target=consumer)
