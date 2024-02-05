@@ -1,0 +1,3 @@
+CPU_CORES = 8
+GPU_COUNT = 8
+RAM = 16 * 1024
